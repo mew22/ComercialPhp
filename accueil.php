@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html>
-<header>
+<head>
 	<title>Projet PHP</title>
 	<meta charset="utf-8" />
 	<link rel="stylesheet" href="style2.css" />
-</header>
+</head>
 
 <body>
 
@@ -14,7 +14,6 @@
 </br>
 </br>
 
-</div>
 
 <table class="table_menu">	
 	<td class="td_menu">Mes commandes passées</td>
@@ -48,7 +47,6 @@
 <table class="table_affiche">
 	<td class="td_affiche">Les produits à afficher</td>
 </table>
-</p>
 
 </body>
 
