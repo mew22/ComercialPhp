@@ -1,34 +1,53 @@
 <!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
 <html>
-    <head>
-        <meta charset="UTF-8">
-        <link rel="stylesheet" type="text/css" href="./style.css">
-        <title></title>
-    </head>
-    <body>
-        
-        <header>
-		<h1>BANNIERE</h1>
-	</header>
-        <?php
-            
-        
-        ?>
-        <section>
-		<article>
-		</article>
+<head>
+	<title>Projet PHP</title>
+	<meta charset="utf-8" />
+	<link rel="stylesheet" href="css/style2.css" />
+</head>
 
-		<aside>
-		</aside>
-	</section>
+<body>
 
-	<footer>
-		<p></p>
-	</footer>
-    </body>
+<h1>Préparer vous pour le combat !!!</h1>
+
+<img class="banniere" src="images/banniere.jpg">
+</br>
+</br>
+
+
+<table class="table_menu">	
+	<td class="td_menu">Mes commandes passées</td>
+	<td class="td_menu">Nouveau ? Inscrivez vous !</td>
+	<td class="td_panier"><a href="pages/ta_page" ><img src="images/panier.jpg" class="panier"/></a></td>
+</table>
+
+</br>
+
+<table class="table_recherche">
+	<td>
+		<FORM>
+			<SELECT name="nom" size="1">
+				<OPTION>Tous produits
+				<OPTION>Fusil
+				<OPTION>Mitraillette
+			</SELECT>
+		</FORM>
+	</td>
+	<td>
+		<input type="text" name="recherche" size="50" value="Rechercher un article">
+	</td>
+	<td>
+		<input type="submit" value="ok">
+	</td>
+</table>
+
+</br>
+</br>
+
+<table class="table_affiche">
+	<td class="td_affiche">Les produits à afficher</td>
+</table>
+
+</body>
+
 </html>
