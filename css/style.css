@@ -1,13 +1,14 @@
-html, body{
+body{
 	min-height: 100%; 
 	margin: 0px; 
 	padding: 0px;
-	background-color: #aaaaaa;
+	//background-color: #aaaaaa;
+        background-image: url(site-background-pattern-07_large.jpeg);
 	color: #101010;
 	font-family: Sansation;
 }
 
-header{
+head{
 	background-color: #888888;
 	height: 150px;
 	font-size: 30px;
