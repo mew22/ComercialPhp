@@ -1,16 +1,15 @@
-
 <?php
+session_start();
 
    include 'gestionPanier.php';
    include 'PDO.php';
    
-   
-   if(isset($_POST['categorie']))
+if(isset($_POST['categorie']))
    {
        echo $_POST['categorie'];
        $cat = $bdd->prepare('SELECT num_categorie FROM categorie WHERE libelle=:c');
        $cat->bindParam(':c', $_POST['categorie']);
-       $cat->execute() or die(print_r($cat->errorInfo()));
+       $cat->execute() or die('Erreur sql1');
        $c = $cat->fetch();
        
        $cmd = $bdd->prepare('SELECT * FROM produit WHERE num_categorie=:c');
@@ -43,10 +42,10 @@
                        list($width, $height) = getimagesize($tmp);
 
 
-                       $ressource = imagecreatefromjpeg ($tmp);
+                       $ressource = imagecreatefrompng ($tmp);
                        imagecopyresampled ( $ressource , $ressource , 0 , 0 , 0 , 0 , $width , $height , $width , $height ) or die('ERROR : resampled');
                         imagestring ( $ressource , 4 , 0 , 0 , 'PROMO !!' , imagecolorallocate ( $ressource , 0 , 0 , 0 ) );
-                        imagejpeg ( $ressource, $tmp, 100) or die('ERROR : jpeg');
+                        imagepng ( $ressource, $tmp, 9) or die('ERROR : png');
 
 
                        echo '
@@ -88,7 +87,7 @@
             </table></td>';
        }
    }
-   
+
    
                function deletePattern($pattern, $string)
             {

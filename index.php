@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 
 <?php 
+    session_start();
     include 'pages/PDO.php';
     ?>
 
@@ -9,10 +10,10 @@
             <title>Projet PHP</title>
             <meta charset="utf-8" />
             <link rel="stylesheet" type = "text/css" href="css/style2.css" />
-            <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+            <script type="text/javascript" src="script/jquery-1.10.2.js"></script>
     </head>
 
-    <body  style="background-color: #BFBDBD;">
+    <body>
 
         <h1>Préparer vous pour le combat !!!</h1>
 
@@ -24,7 +25,8 @@
         <table class="table_menu">	
                 <td class="td_menu">Mes commandes passées</td>
                 <td class="td_menu">Nouveau ? Inscrivez vous !</td>
-                <td class="td_panier"><a href="pages/ta_page" ><img src="images/panier.jpg" class="panier"/></a></td>
+                <td class="td_panier"><a href="pages/panier.php?action=affiche" onclick="window.open(this.href, \'\', 
+                    \'toolbar=no, location=no, directories=no, status=yes, scrollbars=yes, resizable=yes, copyhistory=no, width=600, height=350\'); return false;"><img src="images/panier.jpg" alt="Cliquer pour ajouter au panier" class="panier"/></a></td>
         </table>
 
         </br>
@@ -35,7 +37,7 @@
                 <td>
                         
                             <p>Categorie: 
-                             <select name = "categorie" id = "select">
+                                <select id="selection"  name = "categorie" >
                              <?php 
                                 $command= $bdd->prepare('SELECT * FROM categorie');
                                 $command->execute() or die(print_r($command->errorInfo()));
@@ -49,14 +51,15 @@
                         
                 </td>
                 <td>
-                        <input id ="test" type="text" name="recherche" size="50" value="Rechercher un article">
+                        <input id ="recherche" type="text" name="recherche" size="50" value="Rechercher un article">
                 </td>
                 <td>
                         <input type="submit" value="ok">
                 </td>
+                <td><p><a href="pages/addview.php">Ajouter prod.</a></p></td>
                
         </table>
-             </FORM>
+        </FORM>
 
         </br>
         </br>
@@ -66,14 +69,30 @@
         </table>
 
         <script>
-  
             $("select").click(function()
             {
+
                 tmp = $(this).val();
                 alert(tmp);
-                $("#produit").load("pages/affiche_produit.php", { // N'oubliez pas l'ouverture des accolades !
+                $("#produit").load("pages/affiche_produit.php", { 
                     categorie: $(this).val()
                 });
+             });
+             
+             $("form").submit(function(e)
+             {
+                 alert("submit");
+                 if($("#recherche").val() != "")
+                 {
+                     $("#produit").load("pages/recherche_produit.php", {
+                         categorie: $("select").val(),
+                         recherche: $("#recherche").val()
+                     });
+                 }
+                 else
+                 {
+                     e.preventDefault();
+                 }
              });
         </script>
     </body>

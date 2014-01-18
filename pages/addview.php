@@ -13,7 +13,7 @@ and open the template in the editor.
         
         <?php
    
-         include 'PDO_local.php';
+         include 'PDO.php';
  
      
 ?>
@@ -44,7 +44,7 @@ and open the template in the editor.
                  
                      
                      <input type="submit" value="Envoyer"/>
-                     <a href="affiche_produit.php">Cliquer ici pour voir les produits</a>
+
 
                 </form>
 

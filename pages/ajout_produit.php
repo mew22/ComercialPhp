@@ -22,12 +22,12 @@ and open the template in the editor.
                 $new_height = $height * $percent;
 
                 
-                $ressource_source = imagecreatefromjpeg ($nom_source);
+                $ressource_source = imagecreatefrompng ($nom_source);
                 $ressource_dest= imagecreatetruecolor($new_width, $new_height);
                 
                 imagecopyresampled ( $ressource_dest , $ressource_source , 0 , 0 , 0 , 0 , $new_width , $new_height , $width , $height ) or die('ERROR : resampled');
                 
-                imagejpeg ( $ressource_dest, $nom_destination, 100) or die('ERROR : jpeg');
+                imagepng ( $ressource_dest, $nom_destination, 100) or die('ERROR : jpeg');
                 
                 
                 imagedestroy($ressource_dest);
@@ -64,12 +64,12 @@ and open the template in the editor.
                 $upload_file = $upload_dir . '/' . $i . $_FILES['fichier']['name'];
 
 
-                $upload = 'images/1-' . $i . $_FILES['fichier']['name'];
-                $upload2 = 'images/' . $i . $_FILES['fichier']['name'];
+                $upload = '../images/1-' . $i . $_FILES['fichier']['name'];
+                $upload2 = '../images/' . $i . $_FILES['fichier']['name'];
                 
-                if(!file_exists("images"))
+                if(!file_exists("../images"))
                 {
-                     mkdir("images");
+                     mkdir("../images");
                 }
 
                 /* if(is_file($upload))
