@@ -106,9 +106,10 @@ echo '<?xml version="1.0" encoding="utf-8"?>';?>
 
 	      echo "<tr><td colspan=\"4\">";
 	      echo "<input type=\"submit\" value=\"Rafraichir\"/>";
-	      echo "<input type=\"hidden\" name=\"action\" value=\"refresh\"/>";
-
-	      echo "</td></tr>";
+	      echo "<input type=\"hidden\" name=\"action\" value=\"refresh\"/></td>";
+              echo "<td><form action=\"commande.php\" method=\"post\">";
+              echo "<input type=\"submit\" value=\"Passer commande\"/></td>";
+	      echo "</tr>";
 	   }
 	}
 	?>

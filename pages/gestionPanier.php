@@ -19,7 +19,6 @@ function creationPanier(){
 /**
  * Ajoute un article dans le panier
  * @param string $libelleProduit
- * @param int $qteProduit
  * @param float $prixProduit
  * @return void
  */

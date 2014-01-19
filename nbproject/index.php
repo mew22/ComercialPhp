@@ -15,47 +15,23 @@
 
     <body>
 
-        <h1>Préparez vous pour le combat !!!</h1>
+        <h1>Préparer vous pour le combat !!!</h1>
 
         <img class="banniere" src="images/banniere.jpg">
         </br>
         </br>
-        <?php
-            if (isset($_POST['login']) && isset($_POST['mdp']) && $_POST['login'] != null && $_POST['mdp'] != null) {
 
 
-            $mdp = hash('sha512', 'ohhljgcfhg' . $_POST['mdp']);
-
-            $resultat = $bdd->prepare('SELECT `id_user`, `login` ,`passwd` FROM user WHERE isActivated = 1');
-            $resultat->execute() or die('Erreur bdd');
-            $found = false;
-            while ($donnee = $resultat->fetch()) {
-                    if(($_POST['login'] == $donnee['login']) && ($mdp == $donnee['passwd'])){
-                            $_SESSION['login'] = $_POST['login'];
-                            $_SESSION['id'] = $donnee['id_user'];
-                            $found = true;
-                            break;
-                    }
-            }
-            if(!$found){
-                    header('Location: ./index.php?error=Login%20ou%20MDP%20incorrect.');
-                    exit();
-            }
-    }
-
-    if (isset($_SESSION['login'])) {
-            include('pages/menuco.php');
-    }
-    else{
-            include('pages/menu.php');
-    }
-    ?>
-
-
+        <table class="table_menu">	
+                <td class="td_menu">Mes commandes passées</td>
+                <td class="td_menu">Nouveau ? Inscrivez vous !</td>
+                <td class="td_panier"><a href="pages/panier.php?action=affiche" onclick="window.open(this.href, '', 
+                    'toolbar=no, location=no, directories=no, status=yes, scrollbars=yes, resizable=yes, copyhistory=no, width=600, height=350'); return false;"><img src="images/panier.jpg" alt="Cliquer pour ajouter au panier" class="panier"/></a></td>
+        </table>
 
         </br>
 
-        <FORM id="form1">
+        <FORM id="form">
         <table class="table_recherche">
             
                 <td>
@@ -112,7 +88,7 @@
 
              });
              
-             $("#form1").submit(function(form)
+             $("form").submit(function(form)
              {
                  alert("submit");
                  form.preventDefault();
