@@ -22,32 +22,19 @@ and open the template in the editor.
                 $new_height = $height * $percent;
 
                 
-                $ressource_source = imagecreatefrompng ($nom_source);
+                $ressource_source = imagecreatefromjpeg ($nom_source);
                 $ressource_dest= imagecreatetruecolor($new_width, $new_height);
                 
                 imagecopyresampled ( $ressource_dest , $ressource_source , 0 , 0 , 0 , 0 , $new_width , $new_height , $width , $height ) or die('ERROR : resampled');
                 
-                imagepng ( $ressource_dest, $nom_destination, 100) or die('ERROR : jpeg');
+                imagejpeg ( $ressource_dest, $nom_destination, 100) or die('ERROR : jpeg');
                 
                 
                 imagedestroy($ressource_dest);
                 imagedestroy($ressource_source);
             }
 
-            function deleteChar($string)
-            {
-            	$i;
-            	$tmp = '';
-            	for($i=0;$i<strlen($string);$i++)
-            	{
-            		if($string[$i] != ' ' && $string[$i] != ':' && $string[$i] != '-')
-            		{
-            			$tmp = $tmp . $string[$i];
-            		}
-            	}
 
-            	return $tmp;
-            }
         ?>
         
         <?php
@@ -60,16 +47,16 @@ and open the template in the editor.
 
                 $i = date("YmdHis");
             
-                $upload_dir = '/mnt/traban/3inf2a/sdelaher/WWW/images';
-                $upload_file = $upload_dir . '/' . $i . $_FILES['fichier']['name'];
+                $upload_dir = '/mnt/traban/3inf2a/sdelaher/WWW/images/tmp/';
+                $upload_file = $upload_dir . $i . $_FILES['fichier']['name'];
 
 
-                $upload = '../images/1-' . $i . $_FILES['fichier']['name'];
-                $upload2 = '../images/' . $i . $_FILES['fichier']['name'];
+                $upload = '../images/tmp/1-' . $i . $_FILES['fichier']['name'];
+                $upload2 = '../images/tmp/' . $i . $_FILES['fichier']['name'];
                 
-                if(!file_exists("../images"))
+                if(!file_exists("../images/tmp"))
                 {
-                     mkdir("../images");
+                     mkdir("../images/tmp");
                 }
 
                 /* if(is_file($upload))
@@ -83,7 +70,7 @@ and open the template in the editor.
 
                 
                 move_uploaded_file($_FILES['fichier']['tmp_name'], $upload_file) or die('Erreur move');
-                chmod($upload2, 0777);
+                //chmod($upload2, 0777);
                 
                 list($width, $height) = getimagesize($upload2);
                 $coef=0;

@@ -25,8 +25,8 @@
         <table class="table_menu">	
                 <td class="td_menu">Mes commandes passées</td>
                 <td class="td_menu">Nouveau ? Inscrivez vous !</td>
-                <td class="td_panier"><a href="pages/panier.php?action=affiche" onclick="window.open(this.href, \'\', 
-                    \'toolbar=no, location=no, directories=no, status=yes, scrollbars=yes, resizable=yes, copyhistory=no, width=600, height=350\'); return false;"><img src="images/panier.jpg" alt="Cliquer pour ajouter au panier" class="panier"/></a></td>
+                <td class="td_panier"><a href="pages/panier.php?action=affiche" onclick="window.open(this.href, '', 
+                    'toolbar=no, location=no, directories=no, status=yes, scrollbars=yes, resizable=yes, copyhistory=no, width=600, height=350'); return false;"><img src="images/panier.jpg" alt="Cliquer pour ajouter au panier" class="panier"/></a></td>
         </table>
 
         </br>
@@ -74,24 +74,30 @@
 
                 tmp = $(this).val();
                 alert(tmp);
-                $("#produit").load("pages/affiche_produit.php", { 
+                if($(this).val() == "promotion")
+                {
+                    $("#produit").load("pages/affiche_promotion.php", { 
+                    promo: $(this).val()
+                }); 
+                }
+                else{
+                    $("#produit").load("pages/affiche_produit.php", { 
                     categorie: $(this).val()
                 });
+                }
+
              });
              
-             $("form").submit(function(e)
+             $("form").submit(function(form)
              {
                  alert("submit");
-                 if($("#recherche").val() != "")
+                 form.preventDefault();
+                 if($("#recherche").val() != "" && $("#recherche").val() != "Rechercher un article")
                  {
                      $("#produit").load("pages/recherche_produit.php", {
                          categorie: $("select").val(),
                          recherche: $("#recherche").val()
                      });
-                 }
-                 else
-                 {
-                     e.preventDefault();
                  }
              });
         </script>

@@ -2,7 +2,7 @@
 
                try
                 {
-                    $bdd = new PDO('mysql:host=localhost; dbname=phpcommercial', 'root', '');
+                    $bdd = new PDO('mysql:host=sqletud.univ-mlv.fr; dbname=sdelaher_db', 'sdelaher', 'Y1uudaex');
                 }
                 catch (Exception $e)
                 {

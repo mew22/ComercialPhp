@@ -6,10 +6,9 @@ session_start();
    include 'PDO.php';
    
 
-if(isset($_POST['recherche']))
+if(isset($_POST['promo']))
    {
-
-      $query = $bdd->prepare('SELECT * FROM produit');
+      $query = $bdd->prepare('SELECT * FROM produit WHERE promo=1');
       $query->execute() or die('Erreur SQL (search)');
       
       $i = 0;
@@ -17,8 +16,6 @@ if(isset($_POST['recherche']))
       echo '<tr>';
        while($donnees = $query->fetch())
        {
-           if(strpos($donnees['nom_produit'], $_POST['recherche']) !== false) 
-           {
             $i++;
             $tmp = $donnees['photo'];
             $img = deletePattern('1-', $tmp);
@@ -98,11 +95,11 @@ if(isset($_POST['recherche']))
                  echo '</tr>';
                   $cmp = 0;
               }
-           }
+
        }
        if($i ==0)
        {
-           echo '<td>Aucun produit ne correspond à la recherche</td></tr>';
+           echo '<td>Aucun produit actuel en promotion</td></tr>';
        }
        else{
            echo '</tr>';

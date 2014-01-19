@@ -3,10 +3,11 @@ session_start();
 
    include 'gestionPanier.php';
    include 'PDO.php';
-   
+ 
 if(isset($_POST['categorie']))
    {
-       echo $_POST['categorie'];
+
+
        $cat = $bdd->prepare('SELECT num_categorie FROM categorie WHERE libelle=:c');
        $cat->bindParam(':c', $_POST['categorie']);
        $cat->execute() or die('Erreur sql1');
@@ -15,12 +16,21 @@ if(isset($_POST['categorie']))
        $cmd = $bdd->prepare('SELECT * FROM produit WHERE num_categorie=:c');
        $cmd->bindParam(':c', $c['num_categorie']);
        $cmd->execute()  or die("erreur sql 2");
+       
+       $i=0;
+       $cmp=0;
+       
+       echo '<tr>';
        while($donnees = $cmd->fetch())
        {
           $tmp = $donnees['photo'];
           $img = deletePattern('1-', $tmp);
           $promo = $donnees['promo'];
-           
+          
+          if($cmp == 4)
+          {
+              echo '<tr>';
+          }
            echo'<td>
                     <table border="1px;">
                <tr>
@@ -37,23 +47,25 @@ if(isset($_POST['categorie']))
                </tr>
                <tr>
                    <th>Image</th>';
-                   if($promo)
-                   {
-                       list($width, $height) = getimagesize($tmp);
+           if($promo) {
+            list($width, $height) = getimagesize($tmp);
 
 
-                       $ressource = imagecreatefrompng ($tmp);
-                       imagecopyresampled ( $ressource , $ressource , 0 , 0 , 0 , 0 , $width , $height , $width , $height ) or die('ERROR : resampled');
-                        imagestring ( $ressource , 4 , 0 , 0 , 'PROMO !!' , imagecolorallocate ( $ressource , 0 , 0 , 0 ) );
-                        imagepng ( $ressource, $tmp, 9) or die('ERROR : png');
+            $ressource = imagecreatefromjpeg($tmp);
+            imagecopyresampled($ressource, $ressource, 0, 0, 0, 0, $width, $height, $width, $height) or die('ERROR : resampled');
+            imagestring($ressource, 4, 0, 0, 'PROMO !!', imagecolorallocate($ressource, 0, 0, 0));
+            imagejpeg($ressource, $tmp, 100) or die('ERROR : jpeg');
 
+            $tmp = '~sdelaher/' . $donnees['photo'];
+            $img = deletePattern('1-', $tmp);
+            echo '<td style="width:200px; height:100px;"><a href="' . $img . '"><img src="' . $tmp . '"; alt="Cliquer pour agrandir"; style=" display:block; margin:0 auto";/></a></td>';
+        } else {
+             $tmp = '~sdelaher/' . $donnees['photo'];
+             $img = deletePattern('1-', $tmp);
+            echo '<td style="width:200px; height:100px;"><a href="' . $img . '"><img src="' . $tmp . '"; alt="Cliquer pour agrandir"; style=" display:block; margin:0 auto";/></a></td>';
+        }
 
-                       echo '
-                                <td style="width:200px; height:100px;"><a href="' . $img . '"><img src="' . $tmp . '"; alt="Cliquer pour agrandir"; style=" display:block; margin:0 auto";/></a></td>';
-                   }
-                       else echo '<td style="width:200px; height:100px;"><a href="' . $img . '"><img src="' . $tmp . '"; alt="Cliquer pour agrandir"; style=" display:block; margin:0 auto";/></a></td>';   
-
-                    echo '
+        echo '
                     </tr>   
                <tr>
                    <th>Promotion</th>';
@@ -75,18 +87,29 @@ if(isset($_POST['categorie']))
                </tr>
                <tr>
                     <th>Panier</th>';
-                   if(!isset($_GET["id"]) || $_GET["id"] != $donnees["num_produit"]) {
-                        echo '<td style="width:200px; height:100px;"><a href="panier.php?action=ajout&amp;l=' . $donnees['nom_produit'] . '&amp;p=' . $donnees['prix'] . '" onclick="window.open(this.href, \'\', 
+                   
+                        echo '<td style="width:200px; height:100px;"><a href="pages/panier.php?action=ajout&amp;l=' . $donnees['nom_produit'] . '&amp;p=' . $donnees['prix'] . '" onclick="window.open(this.href, \'\', 
                                 \'toolbar=no, location=no, directories=no, status=yes, scrollbars=yes, resizable=yes, copyhistory=no, width=600, height=350\'); return false;">Ajouter au panier</a>
                               </td>';
-                    } else if ($_GET["id"] == $donnees["num_produit"]) {
-                        echo '<td style="width:200px; height:100px;"> Cet article a été ajouté au panier, <a href="panier.php?action=ajout&amp;l=' . $donnees['nom_produit'] . '&amp;p=' . $donnees['prix'] . '" onclick="window.open(this.href, \'\', 
-                                \'toolbar=no, location=no, directories=no, status=yes, scrollbars=yes, resizable=yes, copyhistory=no, width=600, height=350\'); return false;">Cette article à été ajouter, ajouter ?</a></td>';
-                    }
+
                     echo '</tr>
             </table></td>';
+            
+            $cmp++;
+            if($cmp == 4)
+            {
+                echo '</tr>';
+                $cmp = 0;
+            }
+            $i++;
        }
-   }
+       if ($i == 0) {
+        echo '<td>Aucun produit actuellement dans cette catégorie</td></tr>';
+    } 
+    else {
+        echo'</tr>';
+    }
+}
 
    
                function deletePattern($pattern, $string)
