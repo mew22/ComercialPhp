@@ -1,14 +1,14 @@
 body
 {
-	background-color: #BFBDBD;
-        //background-image: url('images/background.jpeg');
+        background-image: url('images/fond.jpg');
 }
 
 h1
 {
 	font-size: 40px;
 	text-align: center;
-	text-shadow: 0px 0px 9px red;
+	text-shadow: 8px 0px 8px red;
+	color: white;
 }
 
 .banniere
