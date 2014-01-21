@@ -61,17 +61,18 @@
 							$statement = $bdd->prepare('INSERT INTO user (login, 
 								passwd, 
 								nom_user,
+                                                                k,
                                                                 prenom_user,
                                                                 adresse_user,
                                                                 mail_user) 
-								VALUES (:pseudo, :mdp, :nom, :prenom, :adresse, :mail)');
+								VALUES (:pseudo, :mdp, :nom, :k, :prenom, :adresse, :mail)');
 							$statement->bindParam(':pseudo' , $_POST['pseudo']);
 							$statement->bindParam(':mdp' , $mdp);
                                                         $statement->bindParam(':nom', $_POST['nom']);
                                                         $statement->bindParam(':prenom', $_POST['prenom']);
                                                         $statement->bindParam(':adresse', $_POST['adresse']);
 							$statement->bindParam(':mail' , $_POST['mail']);
-							//$statement->bindParam(':keys' , $cle);
+							$statement->bindParam(':k' , $cle);
 							$statement->execute() or die(print_r($statement->errorInfo()));
 
 							$mail = $_POST['mail'];
@@ -103,7 +104,7 @@
 
 				if (isset($_GET['login']) && isset($_GET['cle']) && $_GET['login'] != "" && $_GET['cle'] != "") {
 					
-	                $up = $bdd->prepare('UPDATE user SET isActivated = 1 WHERE keys = :clee');
+	                $up = $bdd->prepare('UPDATE user SET isActivated = 1 WHERE k = :clee');
 	                $up->bindParam(':clee', $_GET['cle']);
 	                $up->execute() or die('Erreur isActivated');
                     echo 'Félicitation votre compte à été activé !';
