@@ -7,7 +7,9 @@
     </head>
     <body>
         <?php
+        session_start();
         include 'PDO.php';
+        include_once 'gestionPanier.php';
             if(!isset($_SESSION['id']))
             {
                 echo 'Il faut etre connecté pour passer une commande';
@@ -28,17 +30,15 @@
                     {
                    
                        $text = $text .htmlspecialchars($_SESSION['panier']['libelleProduit'][$i]);
-                       if($quantite_max['quantite_produit']>=htmlspecialchars($_SESSION['panier']['qteProduit'][$i]))
-                            $text = $text . ' ' .htmlspecialchars($_SESSION['panier']['qteProduit'][$i]);
-                       else {
-                           while($quantite_max = $query->fetch())
-                           {
-                               if($_SESSION['panier']['libelleProduit'][$i] == $quantite_max['nom_produit'])
-                                    $text = $text . ' ' . $quantite_max['quantite_produit'];
-                               
-                           }
-                         }
-                       
+                       /* while($quantite_max = $query->fetch())
+                        {
+                            if($_SESSION['panier']['libelleProduit'][$i] == $quantite_max['nom_produit'])
+                                 if($quantite_max['quantite_produit']>=htmlspecialchars($_SESSION['panier']['qteProduit'][$i]))
+                                    $text = $text . ' ' .htmlspecialchars($_SESSION['panier']['qteProduit'][$i]);
+                                 else $text = $text . ' ' . $quantite_max['quantite_produit'];
+
+                        }*/
+                       $text = $text . ' ' .htmlspecialchars($_SESSION['panier']['qteProduit'][$i]);
                        $text = $text . 'x'.htmlspecialchars($_SESSION['panier']['prixProduit'][$i]);
                        $text = $text . '; '; 
                     }
@@ -75,7 +75,7 @@
                     mail($mail, $titre, $message, $expediteur);
 
      
-                echo 'Un mail de confirmation vous a été envoyer pour la confirmation et le récapitulatif de la commande';
+                echo 'Un mail de confirmation vous a été envoyer pour la confirmation et le récapitulatif de la commande</br>';
                 echo 'Merci d\'avoir commander chez EpicWearpon';
                 
                 for ($i=0 ;$i < $nbArticles; $i++)
@@ -92,6 +92,7 @@
                     $query5->execute() or die('Erreur 5');
                     
                 }
+                supprimePanier();
     }
         ?>
     </body>     
