@@ -13,7 +13,7 @@
             <script type="text/javascript" src="script/jquery-1.10.2.js"></script>
     </head>
 
-    <body>
+    <body >
 
         <h1>Préparez vous pour le combat !!!</h1>
 
@@ -21,13 +21,15 @@
         </br>
         </br>
         <?php
+        
             if (isset($_POST['login']) && isset($_POST['mdp']) && $_POST['login'] != null && $_POST['mdp'] != null) {
 
-
+            echo $trans;
             $mdp = hash('sha512', 'ohhljgcfhg' . $_POST['mdp']);
 
-            $resultat = $bdd->prepare('SELECT `id_user`, `login` ,`passwd` FROM user WHERE isActivated = 1');
+            $resultat = $bdd->prepare('SELECT id_user, login , passwd FROM user'); // WHERE isActivated = 1
             $resultat->execute() or die('Erreur bdd');
+            
             $found = false;
             while ($donnee = $resultat->fetch()) {
                     if(($_POST['login'] == $donnee['login']) && ($mdp == $donnee['passwd'])){
@@ -37,6 +39,7 @@
                             break;
                     }
             }
+
             if(!$found){
                     header('Location: ./index.php?error=Login%20ou%20MDP%20incorrect.');
                     exit();
