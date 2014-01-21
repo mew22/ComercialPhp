@@ -1,5 +1,5 @@
 <?php
-
+include_once 'PDO.php';
 /**
  * Verifie si le panier existe, le créé sinon
  * @return booleen
@@ -59,14 +59,32 @@ function modifierQTeArticle($libelleProduit,$qteProduit){
    if (creationPanier() && !isVerrouille())
    {
       //Si la quantité est positive on modifie sinon on supprime l'article
-      if ($qteProduit > 0)
+      //Verification que l'utilisateur ne dépasse pas la quantité max
+      $query = $bdd->prepare('SELECT quantite_produit FROM produit WHERE nom_produit=:nom');
+      $query->bindParam(':nom',$libelleProduit);
+      $query->execute() or die('erreur verif quantite');
+      $quantite_max = $query->fetch();
+      $quantite = $quantite_max['quantite_produit'] - $qteProduit;
+      if ($qteProduit > 0 && $quantite>=0)
       {
          //Recharche du produit dans le panier
          $positionProduit = array_search($libelleProduit,  $_SESSION['panier']['libelleProduit']);
-
+         
+         
          if ($positionProduit !== false)
          {
             $_SESSION['panier']['qteProduit'][$positionProduit] = $qteProduit ;
+         }
+      }
+      else if($qteProduit > 0 && $quantite<0)
+      {
+          //Recharche du produit dans le panier
+         $positionProduit = array_search($libelleProduit,  $_SESSION['panier']['libelleProduit']);
+         
+         
+         if ($positionProduit !== false)
+         {
+            $_SESSION['panier']['qteProduit'][$positionProduit] = $quantite_max ;
          }
       }
       else
