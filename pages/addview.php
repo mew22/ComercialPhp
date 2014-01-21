@@ -23,6 +23,8 @@ and open the template in the editor.
 			<input type="text" name="name" /></p>
 		<p>Prix:
                     <input type="text" name="prix" /></p>
+                <p>Quantité:
+			<input type="text" name="quantite" /></p>
                 <p>Promo:
                     <input type="radio" name="promo" value="1" id="oui" checked="checked" /> <label for="oui">Oui</label>
                     <input type="radio" name="promo" value="0" id="non" /> <label for="non">Non</label></p></br>

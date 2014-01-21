@@ -82,13 +82,14 @@ and open the template in the editor.
                 imagette($upload2, $upload, $coef);
                 chmod($upload, 0777);
                 
-                $command= $bdd->prepare('INSERT INTO produit(nom_produit, prix, photo, num_categorie, promo) VALUES (:name, :prix, :photo, :num_categorie, :promo)');
+                $command= $bdd->prepare('INSERT INTO produit(nom_produit, prix, photo, num_categorie, promo, quantite_produit) VALUES (:name, :prix, :photo, :num_categorie, :promo, :qte)');
                 
                 $command->bindParam(':name', $_POST['name']);
                 $command->bindParam(':prix', $_POST['prix']);
                 $command->bindParam(':photo', $upload);
                 $command->bindParam(':num_categorie', $_POST['categorie']);
                 $command->bindParam(':promo', $_POST['promo']);
+                $command->bindParam(':qte', $_POST['quantite']);
                 
                 $command->execute() or die(print_r($command->errorInfo()));
                 
