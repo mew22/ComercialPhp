@@ -12,17 +12,33 @@
             {
                 echo 'Il faut etre connecté pour passer une commande';
             }
- else {
+            else {
         //TODO : Mettre la commande du panier dans la bdd avec l'id de l'utilisateur
         //TODO : recuperer l'email de l'utilisateur
         //TODO : Envoyer le mail
                  $nbArticles=  count($_SESSION['panier']['libelleProduit']);
                  $text;
+                 
+                $query = $bdd->prepare('SELECT quantite_produit, nom_produit FROM produit ');
+                $query->bindParam(':nom',$libelleProduit);
+                $query->execute() or die('erreur verif quantite');
+                
+                
                   for ($i=0 ;$i < $nbArticles; $i++)
                     {
                    
                        $text = $text .htmlspecialchars($_SESSION['panier']['libelleProduit'][$i]);
-                       $text = $text . ' ' .htmlspecialchars($_SESSION['panier']['qteProduit'][$i]);
+                       if($quantite_max['quantite_produit']>=htmlspecialchars($_SESSION['panier']['qteProduit'][$i]))
+                            $text = $text . ' ' .htmlspecialchars($_SESSION['panier']['qteProduit'][$i]);
+                       else {
+                           while($quantite_max = $query->fetch())
+                           {
+                               if($_SESSION['panier']['libelleProduit'][$i] == $quantite_max['nom_produit'])
+                                    $text = $text . ' ' . $quantite_max['quantite_produit'];
+                               
+                           }
+                         }
+                       
                        $text = $text . 'x'.htmlspecialchars($_SESSION['panier']['prixProduit'][$i]);
                        $text = $text . '; '; 
                     }

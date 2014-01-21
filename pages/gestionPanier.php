@@ -63,7 +63,7 @@ function ajouterArticle($libelleProduit,$prixProduit,$bdd){
  * @return void
  */
 function modifierQTeArticle($libelleProduit,$qteProduit,$bdd){
-   //Si le panier éxiste
+   
    if (creationPanier() && !isVerrouille())
    {
       //Si la quantité est positive on modifie sinon on supprime l'article
@@ -100,6 +100,7 @@ function modifierQTeArticle($libelleProduit,$qteProduit,$bdd){
    }
    else
    echo "Un problème est survenu veuillez contacter l'administrateur du site.";
+   
 }
 
 /**
