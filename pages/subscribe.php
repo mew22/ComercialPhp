@@ -44,7 +44,7 @@
 			<input type="submit" value="Envoyer" id="sub" /> ';
 
 						
-					echo '</form></div>';
+                    echo '</form></div>';
 				}
 
 	            if(!isset($_GET['actif']) || $_GET['actif'] != 1) {
@@ -63,16 +63,15 @@
 								nom_user,
                                                                 prenom_user,
                                                                 adresse_user,
-                                                                mail_user,
-                                                                keys) 
-								VALUES (:pseudo, :mdp, :nom, :prenom, :adresse, :mail, :keys)');
+                                                                mail_user) 
+								VALUES (:pseudo, :mdp, :nom, :prenom, :adresse, :mail)');
 							$statement->bindParam(':pseudo' , $_POST['pseudo']);
 							$statement->bindParam(':mdp' , $mdp);
                                                         $statement->bindParam(':nom', $_POST['nom']);
                                                         $statement->bindParam(':prenom', $_POST['prenom']);
                                                         $statement->bindParam(':adresse', $_POST['adresse']);
 							$statement->bindParam(':mail' , $_POST['mail']);
-							$statement->bindParam(':keys' , $cle);
+							//$statement->bindParam(':keys' , $cle);
 							$statement->execute() or die(print_r($statement->errorInfo()));
 
 							$mail = $_POST['mail'];
