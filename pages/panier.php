@@ -1,6 +1,7 @@
 <?php
 session_start();
 include_once("gestionPanier.php");
+include_once 'PDO.php';
 
 $erreur = false;
 
@@ -39,7 +40,7 @@ if($action !== null)
 if (!$erreur){
    switch($action){
       Case "ajout":
-         ajouterArticle($l,$p);
+         ajouterArticle($l,$p,$bdd);
          break;
 
       Case "suppression":
@@ -49,15 +50,18 @@ if (!$erreur){
       Case "refresh" :
          for ($i = 0 ; $i < count($QteArticle) ; $i++)
          {
-            modifierQTeArticle($_SESSION['panier']['libelleProduit'][$i],round($QteArticle[$i]));
+            modifierQTeArticle($_SESSION['panier']['libelleProduit'][$i],round($QteArticle[$i]),$bdd);
          }
+         $total = MontantGlobal();
          break;
       Case "affiche" :
+          $total = MontantGlobal();
           break;
       Default:
          break;
    }
 }
+
 
 echo '<?xml version="1.0" encoding="utf-8"?>';?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
@@ -101,7 +105,7 @@ echo '<?xml version="1.0" encoding="utf-8"?>';?>
 
 	      echo "<tr><td colspan=\"2\"> </td>";
 	      echo "<td colspan=\"2\">";
-	      echo "Total : ".MontantGlobal();
+	      echo "Total : ".$total;
 	      echo "</td></tr>";
 
 	      echo "<tr><td colspan=\"4\">";

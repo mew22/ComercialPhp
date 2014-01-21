@@ -22,7 +22,7 @@ function creationPanier(){
  * @param float $prixProduit
  * @return void
  */
-function ajouterArticle($libelleProduit,$prixProduit){
+function ajouterArticle($libelleProduit,$prixProduit,$bdd){
     
    //Si le panier existe
    if (creationPanier() && !isVerrouille())
@@ -38,7 +38,7 @@ function ajouterArticle($libelleProduit,$prixProduit){
         $query->bindParam(':nom',$libelleProduit);
         $query->execute() or die('erreur verif quantite');
         $quantite_max = $query->fetch();
-        $quantite = $quantite_max['quantite_produit'] - ($_SESSION['panier']['qteProduit'][$positionProduit]+1);
+        $quantite = $quantite_max['quantite_produit'] - ($_SESSION['panier']['qteProduit'][$positionProduit]);
         if($quantite>0)
             $_SESSION['panier']['qteProduit'][$positionProduit] += 1 ;
       }
@@ -62,7 +62,7 @@ function ajouterArticle($libelleProduit,$prixProduit){
  * @param $qteProduit
  * @return void
  */
-function modifierQTeArticle($libelleProduit,$qteProduit){
+function modifierQTeArticle($libelleProduit,$qteProduit,$bdd){
    //Si le panier éxiste
    if (creationPanier() && !isVerrouille())
    {
@@ -72,8 +72,8 @@ function modifierQTeArticle($libelleProduit,$qteProduit){
       $query->bindParam(':nom',$libelleProduit);
       $query->execute() or die('erreur verif quantite');
       $quantite_max = $query->fetch();
-      $quantite = $quantite_max['quantite_produit'] - $qteProduit;
-      if ($qteProduit > 0 && $quantite>=0)
+      
+      if ($qteProduit > 0 && ($quantite_max['quantite_produit']>=$qteProduit))
       {
          //Recharche du produit dans le panier
          $positionProduit = array_search($libelleProduit,  $_SESSION['panier']['libelleProduit']);
@@ -84,7 +84,7 @@ function modifierQTeArticle($libelleProduit,$qteProduit){
             $_SESSION['panier']['qteProduit'][$positionProduit] = $qteProduit ;
          }
       }
-      else if($qteProduit > 0 && $quantite<0)
+      else if($qteProduit > 0 && ($quantite_max['quantite_produit']<$qteProduit))
       {
           //Recharche du produit dans le panier
          $positionProduit = array_search($libelleProduit,  $_SESSION['panier']['libelleProduit']);
@@ -92,7 +92,7 @@ function modifierQTeArticle($libelleProduit,$qteProduit){
          
          if ($positionProduit !== false)
          {
-            $_SESSION['panier']['qteProduit'][$positionProduit] = $quantite_max ;
+            $_SESSION['panier']['qteProduit'][$positionProduit] = $quantite_max['quantite_produit'] ;
          }
       }
       else
