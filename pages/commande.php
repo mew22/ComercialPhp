@@ -77,7 +77,22 @@
      
                 echo 'Un mail de confirmation vous a été envoyer pour la confirmation et le récapitulatif de la commande';
                 echo 'Merci d\'avoir commander chez EpicWearpon';
-}
+                
+                for ($i=0 ;$i < $nbArticles; $i++)
+                {
+                    $query4 = $bdd->prepare('SELECT quantite_produit FROM produit WHERE nom_produit=:nom');
+                    $query4->bindParam(':nom', $_SESSION['panier']['libelleProduit'][$i]);
+                    $query4->execute() or die('Erreur4');
+                    $q = $query4->fetch();
+                    $final = $q - $_SESSION['panier']['qteProduit'][$i];
+                    
+                    $query5 = $bdd->prepare('UPDATE produit SET quantite_produit =:qte WHERE nom_produit =:nom');
+                    $query5->bindParam(':nom', $_SESSION['panier']['libelleProduit'][$i]);
+                    $query5->bindParam(':qte', $final);
+                    $query5->execute() or die('Erreur 5');
+                    
+                }
+    }
         ?>
-    </body>
+    </body>     
 </html>
