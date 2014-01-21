@@ -32,13 +32,14 @@ if(isset($_POST['recherche']))
              echo'<td>
                       <table border="1px;">
                  <tr>
-                     <th>Numero</th>
-                     <td>' . $donnees['num_produit'] . '</td>
-                 </tr>
-                 <tr>
                      <th>Nom</th>
                      <td>' . $donnees['nom_produit'] . '</td>
                  </tr>
+                 <th>Quantité</th>';
+                   if($donnees['quantite_produit'] != 0)
+                        echo '<td>' . $donnees['quantite_produit'] .'</td>';
+                   else echo '<td>Rupture de stock</td>';
+               echo'
                  <tr>
                      <th>Prix</th>
                      <td>' . $donnees['prix'] .'</td>
@@ -86,10 +87,11 @@ if(isset($_POST['recherche']))
                  </tr>
                  <tr>
                       <th>Panier</th>';
- 
+                           if($donnees['quantite_produit'] != 0)
                           echo '<td style="width:200px; height:100px;"><a href="pages/panier.php?action=ajout&amp;l=' . $donnees['nom_produit'] . '&amp;p=' . $donnees['prix'] . '" onclick="window.open(this.href, \'\', 
                                   \'toolbar=no, location=no, directories=no, status=yes, scrollbars=yes, resizable=yes, copyhistory=no, width=600, height=350\'); return false;">Ajouter au panier</a>
                                 </td>';
+                           else echo'Impossible d\'ajouter au panier';
                       echo '</tr>
               </table></td>';
               $cmp++;
