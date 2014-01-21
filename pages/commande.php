@@ -84,7 +84,7 @@
                     $query4->bindParam(':nom', $_SESSION['panier']['libelleProduit'][$i]);
                     $query4->execute() or die('Erreur4');
                     $q = $query4->fetch();
-                    $final = $q - $_SESSION['panier']['qteProduit'][$i];
+                    $final = $q['quantite_produit'] - $_SESSION['panier']['qteProduit'][$i];
                     
                     $query5 = $bdd->prepare('UPDATE produit SET quantite_produit =:qte WHERE nom_produit =:nom');
                     $query5->bindParam(':nom', $_SESSION['panier']['libelleProduit'][$i]);
