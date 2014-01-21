@@ -11,6 +11,7 @@ and open the template in the editor.
     </head>
     <body>
         <?php
+        session_start();
         include 'PDO.php';
         
         echo 'Voici l\'historique de vos commande : ';
