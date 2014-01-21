@@ -28,11 +28,19 @@ function ajouterArticle($libelleProduit,$prixProduit){
    if (creationPanier() && !isVerrouille())
    {
       //Si le produit existe déjà on ajoute seulement la quantité
+      
       $positionProduit = array_search($libelleProduit,  $_SESSION['panier']['libelleProduit']);
 
       if ($positionProduit !== false)
       {
-         $_SESSION['panier']['qteProduit'][$positionProduit] += 1 ;
+          //Verification que l'utilisateur ne dépasse pas la quantité max
+        $query = $bdd->prepare('SELECT quantite_produit FROM produit WHERE nom_produit=:nom');
+        $query->bindParam(':nom',$libelleProduit);
+        $query->execute() or die('erreur verif quantite');
+        $quantite_max = $query->fetch();
+        $quantite = $quantite_max['quantite_produit'] - ($_SESSION['panier']['qteProduit'][$positionProduit]+1);
+        if($quantite>0)
+            $_SESSION['panier']['qteProduit'][$positionProduit] += 1 ;
       }
       else
       {
