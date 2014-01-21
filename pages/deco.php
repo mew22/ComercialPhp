@@ -4,6 +4,7 @@
 	unset($_SESSION);
 	unset($_COOKIE);
 	session_destroy();
-	header ('Location: ./');
+	header ('Location: /~sdelaher/index.php');
+        exit();
 
 ?>
