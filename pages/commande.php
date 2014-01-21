@@ -42,7 +42,7 @@
                        $text = $text . 'x'.htmlspecialchars($_SESSION['panier']['prixProduit'][$i]);
                        $text = $text . '; '; 
                     }
-                    $date = date("YmdH");
+           
                     $query = $bdd->prepare('INSERT INTO commande (id_user, libelle_commande)'
                             . 'VALUES (:id, :libelle)');
                     $query->bindParam(':id', $_SESSION['id']);
