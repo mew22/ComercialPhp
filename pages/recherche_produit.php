@@ -91,7 +91,7 @@ if(isset($_POST['recherche']))
                           echo '<td style="width:200px; height:100px;"><a href="pages/panier.php?action=ajout&amp;l=' . $donnees['nom_produit'] . '&amp;p=' . $donnees['prix'] . '" onclick="window.open(this.href, \'\', 
                                   \'toolbar=no, location=no, directories=no, status=yes, scrollbars=yes, resizable=yes, copyhistory=no, width=600, height=350\'); return false;">Ajouter au panier</a>
                                 </td>';
-                           else echo'Impossible d\'ajouter au panier';
+                           else echo'<td style="width:200px; height:100px;">Impossible d\'ajouter au panier</td>';
                       echo '</tr>
               </table></td>';
               $cmp++;
