@@ -46,6 +46,9 @@ if (!$erreur){
       Case "suppression":
          supprimerArticle($l);
          break;
+      Case "suppressionPanier":
+          supprimePanier();
+          break;
 
       Case "refresh" :
          for ($i = 0 ; $i < count($QteArticle) ; $i++)
@@ -71,8 +74,9 @@ echo '<?xml version="1.0" encoding="utf-8"?>';?>
 </head>
 <body>
 
-<form method="post" action="panier.php">
 <table style="width: 400px">
+<form method="post" action="panier.php">
+
 
 
 	<?php
@@ -110,14 +114,13 @@ echo '<?xml version="1.0" encoding="utf-8"?>';?>
 
 	      echo "<tr><td colspan=\"4\">";
 	      echo "<input type=\"submit\" value=\"Rafraichir\"/>";
-	      echo "<input type=\"hidden\" name=\"action\" value=\"refresh\"/></td>";
+	      echo "<input type=\"hidden\" name=\"action\" value=\"refresh\"/></td></form>";
               echo "<td><form action=\"commande.php\" method=\"post\">";
-              echo "<input type=\"submit\" value=\"Passer commande\"/></td>";
-	      echo "</tr>";
+              echo "<input type=\"submit\" value=\"Passer commande\"/></td></form>";
+	      echo "</tr></table>";
 	   }
 	}
 	?>
-</table>
-</form>
+
 </body>
 </html>
