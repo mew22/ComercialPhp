@@ -1,6 +1,6 @@
 <menu id="menu">
 
-    <form onSubmit="/~sdelaher/index.php" action="/~sdelaher/index.php" method="POST" style="text-align: center;">
+    <form  action="/~sdelaher/index.php" method="POST" style="text-align: center;">
         <?php
         if (isset($_GET['error'])) {
             echo "<span style='color:red;'>" . $_GET['error'] . "</span>";
@@ -12,9 +12,8 @@
             <a href="/~sdelaher/pages/panier.php?action=affiche" onclick="window.open(this.href, '',
                         'toolbar=no, location=no, directories=no, status=yes, scrollbars=yes, resizable=yes, copyhistory=no, width=600, height=350');
                 return false;"><img src="/~sdelaher/images/panier.jpg" alt="Cliquer pour ajouter au panier" class="panier"/></a></br>
-            <a href="/~sdelaher/pages/subscribe.php" style="font-size: 16px;">Nouveau ? Inscrivez-vous.</a></br>
-            <a href="/~sdelaher/pages/forget.php" style="font-size: 16px;">Mot de passe/login oublié ?</a>
     </form>
-
+    <div > <a href="/~sdelaher/pages/subscribe.php" style="font-size: 16px;">Nouveau ? Inscrivez-vous.</a></br>
+               <a href="/~sdelaher/pages/forget.php" style="font-size: 16px;">Mot de passe/login oublié ?</a></div>
 
 </menu>
