@@ -116,7 +116,7 @@ if(isset($_POST['categorie']))
 }
 
    
-               function deletePattern($pattern, $string)
+               function deletePattern($pattern, $string) // Fonction pour enlever le "1-" afin d'obtenir les images normales
             {
                 $str='';
                 
