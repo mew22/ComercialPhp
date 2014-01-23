@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 
-<?php
+<?php   // Initile car mail() est désactivée
+
 	session_start();
         header( 'content-type: text/html; charset=utf-8' );
 	include 'PDO.php';
@@ -8,7 +9,7 @@
         function random($car) 
         {
             $string = "";
-            $chaine = "abcdefghijklmnpqrstuvwxy";
+            $chaine = "abcdefghijklmnpqrstuvwxyz";
             srand((double)microtime()*1000000);
             for($i=0; $i<$car; $i++) 
             {
@@ -60,7 +61,7 @@
             if(isset($_POST['mail']) && isset($_POST['mail_verif']) && $_POST['mail'] == $_POST['mail_verif'])
             {
 
-                    $req = $bdd->prepare('SELECT key, login FROM user WHERE mail_user=:mail');
+                    $req = $bdd->prepare('SELECT k, login FROM user WHERE mail_user=:mail');
                     $req->bindParam(':mail', $_POST['mail']);
                     $req->execute() or die('ERREUR SQL'); 
                     
@@ -97,7 +98,7 @@
             {
                 $mdp2 = hash('sha512', 'ohhljgcfhg' . $_GET['new_mdp']);        // ou mettre directement $new_mdp pour plus de sécurité
                 
-                $up = $bdd->prepare('UPDATE user SET passwd = :mdp WHERE key = :clee');
+                $up = $bdd->prepare('UPDATE user SET passwd = :mdp WHERE k = :clee');
                 $up->bindParam(':clee', $_GET['cle']);
                 $up->bindParam(':mdp', $mdp2);
                 $up->execute() or die('Erreur up mdp');
