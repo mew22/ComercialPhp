@@ -26,7 +26,7 @@ if(isset($_POST['promo']))
                 echo '<tr>';
             }
 
-             echo'<td>
+             echo'<td style="border:solid black; border-radius:8px; background-color:white;">
                       <table border="1px;">
 
                  <tr>
