@@ -10,7 +10,7 @@
             <title>Projet PHP</title>
             <meta charset="utf-8" />
             <link rel="stylesheet" type = "text/css" href="css/style2.css" />
-            <script type="text/javascript" src="script/jquery-1.10.2.js"></script>
+            <script type="text/javascript" src="script/jquery-1.10.2.js"></script> <!-- On utilise jquery -->
     </head>
 
     <body >
@@ -22,16 +22,18 @@
         </br>
         <?php
         
+                //  *** Si l'utilisateur souhaite se connecter ***
+        
             if (isset($_POST['login']) && isset($_POST['mdp']) && $_POST['login'] != null && $_POST['mdp'] != null) {
 
             echo $trans;
             $mdp = hash('sha512', 'ohhljgcfhg' . $_POST['mdp']);
 
-            $resultat = $bdd->prepare('SELECT id_user, login , passwd FROM user'); // WHERE isActivated = 1
+            $resultat = $bdd->prepare('SELECT id_user, login , passwd FROM user'); // WHERE isActivated = 1, mais la fonction mail() est désactivée
             $resultat->execute() or die('Erreur bdd');
             
             $found = false;
-            while ($donnee = $resultat->fetch()) {
+            while ($donnee = $resultat->fetch()) {              //Si on trouve une correspondance on le met dans la variable session
                     if(($_POST['login'] == $donnee['login']) && ($mdp == $donnee['passwd'])){
                             $_SESSION['login'] = $_POST['login'];
                             $_SESSION['id'] = $donnee['id_user'];
@@ -40,7 +42,7 @@
                     }
             }
 
-            if(!$found){
+            if(!$found){    //SI on trouve pas de correspondance on envoi un message d'erreur qui sera traiter dans mennu.php
                     header('Location: ./index.php?error=Login%20ou%20MDP%20incorrect.');
                     exit();
             }
@@ -62,7 +64,7 @@
         <table class="table_recherche">
             
                 <td>
-                        
+                        <!-- Un menu déroulant pour la categorie, et un input de recherche (independant) -->
                             <p>Categorie: 
                                 <select id="selection"  name = "categorie" >
                              <?php 
@@ -83,24 +85,25 @@
                 <td>
                         <input type="submit" value="ok">
                 </td>
-                <td><p><a href="pages/addview.php">Ajouter prod.</a></p></td>
                
         </table>
         </FORM>
 
         </br>
         </br>
-
-        <table class="table_affiche" id="produit">
+        
+        <!-- L'endroit ou seront afficher tout les produit grace à AJAX -->
+        <table class="table_affiche" id="produit"> 
                 
         </table>
 
         <script>
+            // Le script qui affiche dynamiquement les produits des categories (charge affiche_promotion.php/affiche_produit.php)
             $("select").click(function()
             {
 
                 tmp = $(this).val();
-                alert(tmp);
+                
                 if($(this).val() == "promotion")
                 {
                     $("#produit").load("pages/affiche_promotion.php", { 
@@ -115,9 +118,10 @@
 
              });
              
+             // Le script qui affiche le resultat de la recherche de produit par mot cle (charge recherche_produit.php)
              $("#form1").submit(function(form)
              {
-                 alert("submit");
+                 
                  form.preventDefault();
                  if($("#recherche").val() != "" && $("#recherche").val() != "Rechercher un article")
                  {
