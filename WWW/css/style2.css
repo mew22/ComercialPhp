@@ -1,0 +1,74 @@
+body
+{
+        //background-color:grey;
+        background-image: url(/~sdelaher/images/backtest.jpg);
+        background-repeat: no-repeat; 
+}
+
+h1
+{
+	font-size: 40px;
+	text-align: center;
+	text-shadow: 8px 0px 8px black;
+	color: white;
+}
+
+.banniere
+{
+	margin: 0 auto;
+	display: block;
+	border-radius: 10px;
+}
+
+.table_menu
+{
+	margin: 0 auto;
+	border-collapse: collapse;	
+	border-radius:1px;
+}
+
+.td_menu
+{	
+	text-align: center;
+	border: solid;
+	width: 250px;
+	font-weight: bold;
+	
+	
+}
+
+.td_panier
+{
+	text-align: center;
+	width: 100px;
+	border-radius: 10px;
+}
+
+.panier
+{
+	border-radius: 10px;
+}
+
+.table_recherche
+{
+	margin: 0 auto;
+	border-collapse: collapse;
+	text-shadow: 8px 0px 8px black;
+}
+
+.table_affiche
+{
+	text-align: center;	
+	margin: 0 auto;
+        background-image: url(/~sdelaher/images/test.jpg);
+}
+
+.td_affiche
+{
+	width: 1000px;
+	height: 400px;
+}
+
+a:over, a:visited{
+    background-image :url(/~sdelaher/images/puce-explo1.fw);
+}

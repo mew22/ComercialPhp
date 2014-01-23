@@ -13,9 +13,11 @@
                 <link rel="stylesheet" type="text/css" href="../css/style2.css">
 	</head>
 	<body>
-		<header>
-			<h1>BANIERE</h1>
-		</header>
+		<h1>Préparez vous pour le combat !!!</h1>
+
+        <img class="banniere" src="/~sdelaher/images/banniere.jpg">
+        </br>
+        </br>
 		
 		<?php
 			if (isset($_SESSION['login'])) {

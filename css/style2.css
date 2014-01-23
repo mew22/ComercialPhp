@@ -1,6 +1,8 @@
 body
 {
-        background-color:grey;
+        //background-color:grey;
+        background-image: url(/~sdelaher/images/backtest.jpg);
+        background-repeat: no-repeat; 
 }
 
 h1
@@ -51,7 +53,6 @@ h1
 {
 	margin: 0 auto;
 	border-collapse: collapse;
-	color:white;
 	text-shadow: 8px 0px 8px black;
 }
 
@@ -59,10 +60,15 @@ h1
 {
 	text-align: center;	
 	margin: 0 auto;
+        background-image: url(/~sdelaher/images/test.jpg);
 }
 
 .td_affiche
 {
 	width: 1000px;
 	height: 400px;
+}
+
+a:over, a:visited{
+    background-image :url(/~sdelaher/images/puce-explo1.fw);
 }

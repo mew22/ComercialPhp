@@ -22,7 +22,7 @@ and open the template in the editor.
         echo '<ul>';
         while($donnees = $query->fetch())
         {
-            echo '<li> le ' . $donnees['date_commande'] . ' :' . $donnees['libelle_commande'] . '</li>';
+            echo '<li style="list-style-image: url(/~sdelaher/images/puce-test2.fw.png);"> le ' . $donnees['date_commande'] . ' :' . $donnees['libelle_commande'] . '</li>';
         }
         echo '</ul>';
         ?>

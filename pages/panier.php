@@ -90,6 +90,7 @@ echo '<?xml version="1.0" encoding="utf-8"?>';?>
 	   {
                echo '<p> Votre panier : ' . $nbArticles .'</p>';
                echo '<table>	<tr>
+                            <th><img src="/~sdelaher/images/shotgun-test.fw.png"/></th>
                             <th>Libelle</th>
                             <th>Quantite</th>
                             <th>Prix Unitaire</th>
@@ -99,6 +100,7 @@ echo '<?xml version="1.0" encoding="utf-8"?>';?>
 	      for ($i=0 ;$i < $nbArticles; $i++)
 	      {
 	         echo "<tr>";
+                 echo "<td><img src=\"/~sdelaher/images/puce-test2.fw.png\"/></td>";
 	         echo "<td>".htmlspecialchars($_SESSION['panier']['libelleProduit'][$i])."</ td>";
 	         echo "<td><input type=\"text\" size=\"4\" name=\"q[]\" value=\"".htmlspecialchars($_SESSION['panier']['qteProduit'][$i])."\"/></td>";
 	         echo "<td>".htmlspecialchars($_SESSION['panier']['prixProduit'][$i])."</td>";
