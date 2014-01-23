@@ -1,13 +1,13 @@
 body
 {
-        background-image: url('/images/fond.jpg');
+        background-color:grey;
 }
 
 h1
 {
 	font-size: 40px;
 	text-align: center;
-	text-shadow: 8px 0px 8px red;
+	text-shadow: 8px 0px 8px black;
 	color: white;
 }
 
@@ -22,15 +22,17 @@ h1
 {
 	margin: 0 auto;
 	border-collapse: collapse;	
+	border-radius:1px;
 }
 
 .td_menu
 {	
 	text-align: center;
-	border: solid black;
+	border: solid;
 	width: 250px;
 	font-weight: bold;
-	text-shadow: 0px 0px 9px red;	
+	
+	
 }
 
 .td_panier
@@ -48,15 +50,15 @@ h1
 .table_recherche
 {
 	margin: 0 auto;
-	border-collapse: collapse;	
+	border-collapse: collapse;
+	color:white;
+	text-shadow: 8px 0px 8px black;
 }
 
 .table_affiche
 {
-	text-align: center;
-	border: solid black;
+	text-align: center;	
 	margin: 0 auto;
-	border-radius: 10px;
 }
 
 .td_affiche

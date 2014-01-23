@@ -31,7 +31,7 @@ if(isset($_POST['categorie']))
           {
               echo '<tr>';
           }
-           echo'<td>
+           echo'<td style="border:solid black; border-radius:8px; background-color:white;">
                     <table border="1px;">
                <tr>
                    <th>Nom</th>

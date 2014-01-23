@@ -65,7 +65,7 @@
             
                 <td>
                         <!-- Un menu déroulant pour la categorie, et un input de recherche (independant) -->
-                            <p>Categorie: 
+                            <p>Rechercher les articles d'une categorie: 
                                 <select id="selection"  name = "categorie" >
                              <?php 
                                 $command= $bdd->prepare('SELECT * FROM categorie');
@@ -79,8 +79,11 @@
                             </p>
                         
                 </td>
+				<td style="width:200px;"></td>
                 <td>
+					<p>Rechercher un article:
                         <input id ="recherche" type="text" name="recherche" size="50" value="Rechercher un article">
+					</p>
                 </td>
                 <td>
                         <input type="submit" value="ok">
